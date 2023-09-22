@@ -25,13 +25,20 @@
               draggable="false"
             />
           </div>
-          <div class="main__upload-box__container__content-box">
+          <div class="main__upload-box__container__content-box no-file">
             <h3 class="main__upload-box__container__content-box__title">
               Drag & drop files or <span class="browse-btn">Browse</span>
             </h3>
             <p class="main__upload-box__container__content-box__text">
               Supported formats: html, css , js
             </p>
+          </div>
+          <div
+            class="main__upload-box__container__content-box have-file hide-box"
+          >
+            <h3 class="main__upload-box__container__content-box__title">
+              There is a file
+            </h3>
           </div>
         </div>
         <a download="" class="download-btn">DownLoad File</a>
@@ -99,5 +106,6 @@
     <!----------- End of main --------------->
     <!-- -------- Scripts ---------- -->
     <script src="sweetalert2.all.min.js"></script>
+    <script src="./assest/js/app.js"></script>
   </body>
 </html>
