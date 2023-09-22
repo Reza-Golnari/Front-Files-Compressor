@@ -2,7 +2,7 @@ const $ = document;
 
 const browseBtn = $.querySelector(".browse-btn");
 const fileInput = $.querySelector(".file-input");
-const uploadBox = $.querySelector(".main__upload-box");
+const uploadBox = $.querySelector(".main__upload-box__container");
 const haveFileBox = $.querySelector(".have-file");
 const noFileBox = $.querySelector(".no-file");
 
@@ -16,4 +16,13 @@ fileInput.addEventListener("input", () => {
     haveFileBox.classList.remove("hide-box");
     uploadBox.style.pointerEvents = "none";
   }
+});
+
+uploadBox.addEventListener("dragover", (event) => {
+  event.preventDefault();
+  uploadBox.classList.add("dragover");
+});
+
+uploadBox.addEventListener("dragleave", (event) => {
+  uploadBox.classList.remove("dragover");
 });
