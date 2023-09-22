@@ -31,6 +31,7 @@
     }
 
     &__container {
+      position: relative;
       @include sizing(600px, 500px);
       border: 10px dashed $light-green;
       background-color: #d9d9d94d;
@@ -53,11 +54,36 @@
             cursor: pointer;
           }
         }
+
+        .download-btn {
+          position: absolute;
+          bottom: 40px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: $light-green;
+          color: $dark;
+          padding: 10px;
+          border-radius: 10px;
+          filter: drop-shadow(0 0 5px rgba($light-green, 0.5));
+          cursor: pointer;
+          pointer-events: none;
+          opacity: 0;
+          visibility: hidden;
+          font-weight: 700;
+          transition: opacity 0.4s;
+
+          &.show {
+            pointer-events: all;
+            opacity: 1;
+            visibility: visible;
+          }
+        }
       }
     }
   }
 
   &__aside {
     width: 40%;
+    @include flex(column, center, flex-start);
   }
 }
