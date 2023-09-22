@@ -7,12 +7,37 @@
     <title>Document</title>
   </head>
   <body>
-    <!----------- Start of header ----------->
+    <!----------- Start of navbar ----------->
     <nav class="navbar">
       <h1 class="navbar__title">File Compressor</h1>
       <a href="./about.html" class="navbar__link">About Us</a>
     </nav>
-    <!----------- End of header   ----------->
+    <!----------- End of navbar ------------->
+    <!----------- Start of main ------------->
+    <main class="main">
+      <section class="main__upload-box">
+        <div class="main__upload-box__container">
+          <input type="file" class="file-input" />
+          <div class="main__upload-box__container__img-box">
+            <img
+              src="./assest/pic/Upload icon.svg"
+              class="main__upload-box__container__img-box__img"
+              draggable="false"
+            />
+          </div>
+          <div class="main__upload-box__container__content-box">
+            <h3 class="main__upload-box__container__content-box__title">
+              Drag & drop files or <span class="browse-btn">Browse</span>
+            </h3>
+            <p class="main__upload-box__container__content-box__text">
+              Supported formats: html, css , js
+            </p>
+          </div>
+        </div>
+      </section>
+      <aside class="main__aside"></aside>
+    </main>
+    <!----------- End of main --------------->
     <!-- -------- Scripts ---------- -->
     <script src="sweetalert2.all.min.js"></script>
   </body>

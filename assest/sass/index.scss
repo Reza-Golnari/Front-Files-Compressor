@@ -1,12 +1,14 @@
 @import "basic";
 
 .navbar {
+  @include sizing(100%, max-content);
   @include flex(row, center, space-between);
-  padding: 30px 40px;
+  padding: 20px 40px;
   color: $white;
 
   &__title {
     font-size: 2.3rem;
+    margin: 0;
   }
 
   &__link {
@@ -14,5 +16,48 @@
     color: $white;
     font-size: 1.3rem;
     font-weight: 700;
+  }
+}
+
+.main {
+  margin-top: 50px;
+  @include flex();
+  &__upload-box {
+    width: 60%;
+    @include flex();
+
+    .file-input {
+      display: none;
+    }
+
+    &__container {
+      @include sizing(600px, 500px);
+      border: 10px dashed $light-green;
+      background-color: #d9d9d94d;
+      @include flex(column, center, center);
+      row-gap: 50px;
+      &__img-box {
+        width: 100%;
+        @include flex();
+      }
+      &__content-box {
+        color: $white;
+        text-align: center;
+
+        &__title {
+          font-size: 1.5rem;
+          margin-bottom: 20px;
+
+          .browse-btn {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  &__aside {
+    width: 40%;
   }
 }
