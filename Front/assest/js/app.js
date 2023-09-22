@@ -8,7 +8,9 @@ const noFileBox = $.querySelector(".no-file");
 const uploadProgress = $.querySelector(".upload-progress");
 const responseProgress = $.querySelector(".response-progress");
 const downloadBtn = $.querySelector(".download-btn");
-
+const iconArr = $.querySelectorAll(
+  ".main__aside__body__step-container__box__icon"
+);
 $.addEventListener("drop", (e) => {
   e.preventDefault();
 });
@@ -47,27 +49,34 @@ async function sendFile(file) {
   let formData = new FormData();
   formData.append("data_file", file);
 
-  console.log(formData);
-  console.log(file);
+  iconArr[0].classList.add("done");
+  iconArr[0].parentElement.style.color = "#fff";
+  uploadProgress.style.height = "100%";
+
   await axios
     .post("http://127.0.0.1:8000/compress", formData, {
       onUploadProgress: function (progressEvent) {
         const progress = Math.round(
           (progressEvent.loaded * 100) / progressEvent.total
         );
+        iconArr[1].classList.add("done");
+        iconArr[1].parentElement.style.color = "#fff";
+        responseProgress.style.height = progress + "%";
       },
     })
     .then(function (response) {
       console.log(response);
       let mainFile = window.URL.createObjectURL(new Blob([response.data]));
-      //   mainFile = mainFile.slice(5, -1);
       downloadBtn.href = mainFile;
       downloadBtn.setAttribute("download", "vue.js");
       downloadBtn.classList.add("show");
-      console.log(mainFile);
-      console.log(downloadBtn);
     })
     .catch(function (error) {
       console.log(error);
     });
 }
+
+downloadBtn.addEventListener("click", () => {
+  iconArr[2].classList.add("done");
+  iconArr[2].parentElement.style.color = "#fff";
+});
