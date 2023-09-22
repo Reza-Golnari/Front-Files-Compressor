@@ -20,14 +20,41 @@
 }
 
 .main {
-  margin-top: 50px;
+  margin-top: 80px;
   @include flex();
   &__upload-box {
     width: 60%;
-    @include flex();
+    @include flex(column);
 
     .file-input {
       display: none;
+    }
+
+    .download-btn {
+      width: 600px;
+      margin-top: 30px;
+      background-color: $light-green;
+      color: $dark;
+      padding: 10px;
+      border-radius: 10px;
+      filter: drop-shadow(0 0 5px rgba($light-green, 0.5));
+      cursor: pointer;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      font-weight: 700;
+      text-align: center;
+      transition: opacity 0.4s;
+
+      &.show {
+        pointer-events: all;
+        opacity: 1;
+        visibility: visible;
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
     }
 
     &__container {
@@ -54,36 +81,12 @@
             cursor: pointer;
           }
         }
-
-        .download-btn {
-          position: absolute;
-          bottom: 40px;
-          left: 50%;
-          transform: translateX(-50%);
-          background-color: $light-green;
-          color: $dark;
-          padding: 10px;
-          border-radius: 10px;
-          filter: drop-shadow(0 0 5px rgba($light-green, 0.5));
-          cursor: pointer;
-          pointer-events: none;
-          opacity: 0;
-          visibility: hidden;
-          font-weight: 700;
-          transition: opacity 0.4s;
-
-          &.show {
-            pointer-events: all;
-            opacity: 1;
-            visibility: visible;
-          }
-        }
       }
     }
   }
 
   &__aside {
-    @include sizing(40%, 450px);
+    @include sizing(40%, 500px);
     @include flex(column, center, flex-start);
     row-gap: 20px;
 
@@ -93,22 +96,47 @@
         font-size: 1.3rem;
       }
       &__step-container {
-        margin-top: 10px;
+        margin-top: 20px;
         @include flex(column, flex-start, flex-start);
         row-gap: 30px;
         color: $dark-light;
 
         &__box {
+          position: relative;
           @include flex(row, center, flex-start);
-          column-gap: 5px;
+
+          .upload-progress-box {
+            position: absolute;
+            top: 30px;
+            left: 11px;
+            @include sizing(3px, 40px);
+            background-color: $dark-light-2;
+          }
+
+          .upload-progress,
+          .response-progress {
+            display: block;
+            @include sizing(100%, 0%);
+            background-color: $orange;
+          }
+
+          .response-progress-box {
+            position: absolute;
+            top: 50px;
+            left: 11px;
+            @include sizing(3px, 42px);
+            background-color: $dark-light-2;
+          }
 
           &__icon {
             position: relative;
             @include sizing(25px, 25px);
             background-color: $dark-light-2;
             border-radius: 50%;
+            margin-right: 5px;
 
-            &::before {
+            &::before,
+            &::after {
               content: "";
               position: absolute;
               top: 50%;
@@ -117,6 +145,26 @@
               @include sizing(10px, 10px);
               background-color: $dark-light;
               border-radius: 50%;
+              transition: all 0.3s;
+            }
+
+            &.done {
+              background-color: $orange;
+
+              &::before {
+                @include sizing(8px, 3px);
+                transform: rotate(45deg) translate(-5px, 6px);
+                left: 45%;
+                background-color: $white;
+                border-radius: 10px;
+              }
+              &::after {
+                @include sizing(15px, 3px);
+                transform: rotate(-50deg) translate(-2px, -4px);
+                background-color: $white;
+                left: 45%;
+                border-radius: 10px;
+              }
             }
           }
         }
