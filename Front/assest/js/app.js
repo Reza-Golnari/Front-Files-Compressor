@@ -37,5 +37,27 @@ uploadBox.addEventListener("drop", (event) => {
   noFileBox.classList.add("hide-box");
   haveFileBox.classList.remove("hide-box");
   uploadBox.style.pointerEvents = "none";
-  console.log(event.dataTransfer.files);
+  sendFile(event.dataTransfer.files[0]);
 });
+
+async function sendFile(file) {
+  let formData = new FormData();
+  formData.append("data_file", file);
+
+  console.log(formData);
+  console.log(file);
+  await axios
+    .post("http://127.0.0.1:8000/compress", formData, {
+      onUploadProgress: function (progressEvent) {
+        const percentCompleted = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
+      },
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
