@@ -6,7 +6,7 @@ $dark-light: #717a8c;
 $dark: #1b202a;
 $orange: #fc7900;
 
-@include sizing($w, $h) {
+@mixin sizing($w, $h) {
   width: $w;
   height: $h;
 }
@@ -20,10 +20,20 @@ $orange: #fc7900;
 
 *,
 *::after,
-*::before {
+*::before,
+h1 {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+*::selection {
+  background-color: $dark-light;
+  color: $white;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 
 body {
