@@ -83,7 +83,67 @@
   }
 
   &__aside {
-    width: 40%;
+    @include sizing(40%, 450px);
     @include flex(column, center, flex-start);
+    row-gap: 20px;
+
+    &__body {
+      &__title {
+        color: $white;
+        font-size: 1.3rem;
+      }
+      &__step-container {
+        margin-top: 10px;
+        @include flex(column, flex-start, flex-start);
+        row-gap: 30px;
+        color: $dark-light;
+
+        &__box {
+          @include flex(row, center, flex-start);
+          column-gap: 5px;
+
+          &__icon {
+            position: relative;
+            @include sizing(25px, 25px);
+            background-color: $dark-light-2;
+            border-radius: 50%;
+
+            &::before {
+              content: "";
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              @include sizing(10px, 10px);
+              background-color: $dark-light;
+              border-radius: 50%;
+            }
+          }
+        }
+
+        .time-box {
+          .main__aside__body__step-container__text {
+            @include flex(column, flex-start, flex-start);
+            margin-top: 20px;
+
+            &__sub-text {
+              @include flex(row, center, flex-start);
+            }
+            .clock-icon {
+              margin-top: 5px;
+              display: inline-block;
+              width: 20px;
+              color: $dark-light-2;
+            }
+            span:last-child {
+              position: relative;
+              top: -5px;
+              font-size: 0.9rem;
+              color: $dark-light-2;
+            }
+          }
+        }
+      }
+    }
   }
 }
