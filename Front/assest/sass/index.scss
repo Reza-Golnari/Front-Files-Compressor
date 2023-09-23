@@ -46,12 +46,6 @@
       text-align: center;
       transition: opacity 0.4s;
 
-      &.show {
-        pointer-events: all;
-        opacity: 1;
-        visibility: visible;
-      }
-
       &:active {
         transform: scale(0.98);
       }
@@ -189,6 +183,36 @@
               font-size: 0.9rem;
               color: $dark-light;
             }
+          }
+        }
+      }
+    }
+  }
+
+  &__modal {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    @include sizing(100%, 100vh);
+    background-color: rgba($dark, 0.5);
+    @include flex();
+
+    &__content-box {
+      padding: 15px 10px;
+      @include sizing(500px, 300px);
+      background-color: $dark;
+      border: 5px dashed $light-green;
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba($light-green, 0.5);
+
+      &__info {
+        h4 {
+          color: $white;
+          letter-spacing: 2px;
+          margin-bottom: 10px;
+
+          span {
+            color: $light-green;
           }
         }
       }

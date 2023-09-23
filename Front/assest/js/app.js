@@ -84,6 +84,7 @@ async function sendFile(file) {
       downloadBtn.href = mainFile;
       downloadBtn.setAttribute("download", fileName);
       downloadBtn.classList.add("show");
+      downloadBtn.click();
     })
     .catch(function (error) {
       console.log(error);
