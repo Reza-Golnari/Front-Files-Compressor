@@ -169,15 +169,16 @@
   }
 
   &__modal {
-    position: absolute;
+    visibility: hidden;
+    position: fixed;
     top: 0;
     bottom: 0;
     opacity: 0;
     transition: opacity 0.3s;
-    visibility: hidden;
-    @include sizing(100%, 100vh);
+    @include sizing(100%, 100%);
     background-color: rgba($dark, 0.5);
     @include flex();
+    display: none;
 
     &__content-box {
       padding: 15px 10px;
@@ -210,6 +211,7 @@
         @include flex(row, center, flex-start);
         column-gap: 5px;
         .download-btn {
+          text-decoration: none;
           flex-basis: 80%;
           display: block;
           background-color: $light-green;
@@ -250,6 +252,7 @@
     &.active {
       visibility: visible;
       opacity: 1;
+      display: flex;
 
       .main__modal__content-box {
         opacity: 1;

@@ -38,6 +38,7 @@ $light-red: #ee5253;
 }
 
 body {
+  position: relative;
   @include sizing(100%, 100vh);
   background-color: $dark;
   font-family: "Poppins", sans-serif;

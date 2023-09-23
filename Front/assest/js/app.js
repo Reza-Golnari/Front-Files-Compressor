@@ -11,7 +11,11 @@ const downloadBtn = $.querySelector(".download-btn");
 const iconArr = $.querySelectorAll(
   ".main__aside__body__step-container__box__icon"
 );
+const closeBtn = $.querySelector(".close-btn");
+const modal = $.querySelector(".main__modal");
 let fileName;
+
+// modal.style.height = window.innerHeight + "px";
 
 $.addEventListener("drop", (e) => {
   e.preventDefault();
@@ -77,12 +81,11 @@ async function sendFile(file) {
       },
     })
     .then(function (response) {
-      console.log(response);
       let mainFile = window.URL.createObjectURL(new Blob([response.data]));
       downloadBtn.href = mainFile;
       downloadBtn.setAttribute("download", fileName);
       downloadBtn.classList.add("show");
-      downloadBtn.click();
+      modal.classList.add("active");
     })
     .catch(function (error) {
       console.log(error);
@@ -93,3 +96,22 @@ downloadBtn.addEventListener("click", () => {
   iconArr[2].classList.add("done");
   iconArr[2].parentElement.style.color = "#fff";
 });
+
+closeBtn.addEventListener("click", () => {
+  reset();
+});
+
+function reset() {
+  modal.classList.remove("active");
+  downloadBtn.href = "";
+  downloadBtn.download = "";
+  uploadProgress.style.height = 0;
+  responseProgress.style.height = 0;
+  iconArr.forEach((icon) => {
+    icon.classList.remove("done");
+    icon.parentElement.style.color = "#717a8c";
+  });
+  noFileBox.classList.remove("hide-box");
+  haveFileBox.classList.add("hide-box");
+  uploadBox.style.pointerEvents = "all";
+}
