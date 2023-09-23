@@ -41,10 +41,7 @@ uploadBox.addEventListener("dragleave", () => {
 
 uploadBox.addEventListener("drop", (event) => {
   event.preventDefault();
-  uploadBox.classList.remove("dragover");
-  noFileBox.classList.add("hide-box");
-  haveFileBox.classList.remove("hide-box");
-  uploadBox.style.pointerEvents = "none";
+
   if (
     event.dataTransfer.files[0].type.includes("html") ||
     event.dataTransfer.files[0].type.includes("css") ||
@@ -52,9 +49,10 @@ uploadBox.addEventListener("drop", (event) => {
     event.dataTransfer.files[0].type.includes("javascript")
   ) {
     sendFile(event.dataTransfer.files[0]);
-    console.log("hi");
-  } else {
-    console.log("bye");
+    uploadBox.classList.remove("dragover");
+    noFileBox.classList.add("hide-box");
+    haveFileBox.classList.remove("hide-box");
+    uploadBox.style.pointerEvents = "none";
   }
 });
 

@@ -172,6 +172,8 @@
     position: absolute;
     top: 0;
     bottom: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
     visibility: hidden;
     @include sizing(100%, 100vh);
     background-color: rgba($dark, 0.5);
@@ -185,6 +187,10 @@
       border-radius: 10px;
       box-shadow: 0 2px 15px rgba($light-green, 0.5);
       @include flex(column, flex-start, space-around);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s;
+
       &__info {
         width: 100%;
 
@@ -238,6 +244,16 @@
             transform: scale(0.98);
           }
         }
+      }
+    }
+
+    &.active {
+      visibility: visible;
+      opacity: 1;
+
+      .main__modal__content-box {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
   }
