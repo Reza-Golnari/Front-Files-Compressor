@@ -19,7 +19,15 @@ const processTimeElam = $.querySelector("#processTime");
 const inputSizeElam = $.querySelector("#inputSize");
 const outputSizeElam = $.querySelector("#outputSize");
 const ratioElam = $.querySelector("#ratio");
-let mainFile, fileName, file2Name, processTime, inputSize, outputSize, ratio;
+let startTime,
+  endTime,
+  mainFile,
+  fileName,
+  file2Name,
+  processTime,
+  inputSize,
+  outputSize,
+  ratio;
 
 $.addEventListener("drop", (e) => {
   e.preventDefault();
@@ -27,16 +35,6 @@ $.addEventListener("drop", (e) => {
 
 browseBtn.addEventListener("click", () => {
   fileInput.click();
-});
-
-fileInput.addEventListener("input", () => {
-  if (fileInput.files) {
-    noFileBox.classList.add("hide-box");
-    haveFileBox.classList.remove("hide-box");
-    uploadBox.style.pointerEvents = "none";
-    sendFile(fileInput.files[0]);
-    inputSize = fileInput.files[0].size;
-  }
 });
 
 uploadBox.addEventListener("dragover", (event) => {
@@ -48,6 +46,17 @@ uploadBox.addEventListener("dragleave", () => {
   uploadBox.classList.remove("dragover");
 });
 
+fileInput.addEventListener("input", () => {
+  if (fileInput.files) {
+    startTime = Date.now();
+    noFileBox.classList.add("hide-box");
+    haveFileBox.classList.remove("hide-box");
+    uploadBox.style.pointerEvents = "none";
+    sendFile(fileInput.files[0]);
+    inputSize = fileInput.files[0].size;
+  }
+});
+
 uploadBox.addEventListener("drop", (event) => {
   event.preventDefault();
 
@@ -57,6 +66,7 @@ uploadBox.addEventListener("drop", (event) => {
     event.dataTransfer.files[0].type.includes("js") ||
     event.dataTransfer.files[0].type.includes("javascript")
   ) {
+    startTime = Date.now();
     sendFile(event.dataTransfer.files[0]);
     uploadBox.classList.remove("dragover");
     noFileBox.classList.add("hide-box");
@@ -91,11 +101,15 @@ async function sendFile(file) {
       downloadBtn.setAttribute("download", fileName);
       downloadBtn.classList.add("show");
       modal.classList.add("active");
+      fileNameElem.textContent = fileName;
       outputSize = response.headers["content-length"];
       outputSizeElam.textContent = (outputSize / 1024).toFixed(2) + "KB";
       inputSizeElam.textContent = (inputSize / 1024).toFixed(2) + "KB";
       ratio = 100 - ((outputSize / inputSize) * 100).toFixed(1);
       ratioElam.textContent = ratio.toFixed(2) + "%";
+      endTime = Date.now();
+      processTime = ((endTime - startTime) / 1000).toFixed(1);
+      processTimeElam.textContent = processTime + "s";
     })
     .catch(function (error) {
       console.log(error);
@@ -121,6 +135,7 @@ function reset() {
     icon.classList.remove("done");
     icon.parentElement.style.color = "#717a8c";
   });
+  fileInput.value = null;
   noFileBox.classList.remove("hide-box");
   haveFileBox.classList.add("hide-box");
   uploadBox.style.pointerEvents = "all";
