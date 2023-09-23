@@ -42,4 +42,5 @@ body {
   @include sizing(100%, 100vh);
   background-color: $dark;
   font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
 }

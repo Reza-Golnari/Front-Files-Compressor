@@ -331,6 +331,10 @@
   }
 }
 @media screen and (max-width: 460px) {
+  .navbar__link {
+    font-size: 0.8rem;
+  }
+
   .main__modal__content-box {
     @include sizing(300px, 300px);
     padding: 15px 10px;

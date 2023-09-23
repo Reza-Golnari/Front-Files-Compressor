@@ -1,0 +1,134 @@
+@import "basic";
+
+.navbar {
+  @include sizing(100%, max-content);
+  @include flex(row, center, space-between);
+  padding: 20px 40px;
+  color: $white;
+
+  &__title {
+    font-size: 2.3rem;
+    margin: 0;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: $white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-top: 5px;
+  }
+}
+
+.main {
+  @include sizing(100%, auto);
+  padding: 20px;
+
+  &__title {
+    font-size: 3rem;
+    text-align: center;
+    color: $white;
+  }
+
+  &__container {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 50px;
+
+    &__box {
+      &__title {
+        color: $dark-light;
+        margin-bottom: 10px;
+        font-size: 1.5rem;
+      }
+      &__text {
+        color: $white;
+        letter-spacing: 1px;
+      }
+      &__contact-title {
+        margin: 10px 0;
+        color: $dark-light;
+      }
+      &__contact-menu {
+        &__item {
+          margin: 5px 0;
+          list-style-type: none;
+        }
+        &__link {
+          color: $white;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .main__container {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 690px) {
+  .main__container {
+    width: 80%;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+  }
+}
+@media screen and (max-width: 640px) {
+  .navbar__title {
+    font-size: 1.3rem;
+  }
+  .main__container {
+    margin-top: 20px;
+  }
+  .navbar__link {
+    font-size: 1rem;
+  }
+  .navbar {
+    padding: 10px 15px;
+  }
+  .main__title {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .main {
+    padding: 10px !important;
+
+    &__title {
+      font-size: 1.5rem;
+    }
+  }
+  .main__container {
+    width: 100% !important;
+
+    &__box {
+      &__title {
+        font-size: 1.2rem;
+      }
+      &__text {
+        font-size: 0.9rem;
+      }
+      &__contact-title {
+        font-size: 1rem;
+      }
+      &__contact-menu {
+        &__link {
+          font-size: 0.8rem;
+        }
+      }
+    }
+    .navbar__link {
+      font-size: 0.8rem;
+    }
+    .main__title {
+      font-size: 1.5rem;
+    }
+  }
+}
