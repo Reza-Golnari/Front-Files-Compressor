@@ -30,27 +30,6 @@
       display: none;
     }
 
-    .download-btn {
-      width: 600px;
-      margin-top: 30px;
-      background-color: $light-green;
-      color: $dark;
-      padding: 10px;
-      border-radius: 10px;
-      filter: drop-shadow(0 0 5px rgba($light-green, 0.5));
-      cursor: pointer;
-      pointer-events: none;
-      opacity: 0;
-      visibility: hidden;
-      font-weight: 700;
-      text-align: center;
-      transition: opacity 0.4s;
-
-      &:active {
-        transform: scale(0.98);
-      }
-    }
-
     &__container {
       position: relative;
       @include sizing(600px, 500px);
@@ -193,6 +172,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
+    visibility: hidden;
     @include sizing(100%, 100vh);
     background-color: rgba($dark, 0.5);
     @include flex();
@@ -204,15 +184,58 @@
       border: 5px dashed $light-green;
       border-radius: 10px;
       box-shadow: 0 2px 15px rgba($light-green, 0.5);
-
+      @include flex(column, flex-start, space-around);
       &__info {
+        width: 100%;
+
         h4 {
           color: $white;
           letter-spacing: 2px;
-          margin-bottom: 10px;
+          margin-bottom: 15px;
 
           span {
             color: $light-green;
+          }
+        }
+      }
+
+      &__download-box {
+        width: 100%;
+        @include flex(row, center, flex-start);
+        column-gap: 5px;
+        .download-btn {
+          flex-basis: 80%;
+          display: block;
+          background-color: $light-green;
+          color: $dark;
+          padding: 10px;
+          border-radius: 10px;
+          filter: drop-shadow(0 0 5px rgba($light-green, 0.5));
+          cursor: pointer;
+          font-weight: 700;
+          text-align: center;
+
+          &:active {
+            transform: scale(0.98);
+          }
+        }
+
+        .close-btn {
+          all: unset;
+          text-align: center;
+          flex-basis: 20%;
+          border-radius: 10px;
+          background-color: $light-red;
+          filter: drop-shadow(0 0 5px rgba($light-red, 0.5));
+          cursor: pointer;
+          @include flex();
+          padding: 4.5px;
+          &-icon {
+            width: 30px;
+          }
+
+          &:active {
+            transform: scale(0.98);
           }
         }
       }
