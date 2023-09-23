@@ -26,6 +26,7 @@ fileInput.addEventListener("input", () => {
     noFileBox.classList.add("hide-box");
     haveFileBox.classList.remove("hide-box");
     uploadBox.style.pointerEvents = "none";
+    sendFile(fileInput.files[0]);
   }
 });
 
@@ -45,11 +46,15 @@ uploadBox.addEventListener("drop", (event) => {
   haveFileBox.classList.remove("hide-box");
   uploadBox.style.pointerEvents = "none";
   if (
-    event.dataTransfer.files[0].type.includes("/html") ||
-    event.dataTransfer.files[0].type.includes("/css") ||
-    event.dataTransfer.files[0].type.includes("/js")
+    event.dataTransfer.files[0].type.includes("html") ||
+    event.dataTransfer.files[0].type.includes("css") ||
+    event.dataTransfer.files[0].type.includes("js") ||
+    event.dataTransfer.files[0].type.includes("javascript")
   ) {
     sendFile(event.dataTransfer.files[0]);
+    console.log("hi");
+  } else {
+    console.log("bye");
   }
 });
 
