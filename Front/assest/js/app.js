@@ -13,9 +13,13 @@ const iconArr = $.querySelectorAll(
 );
 const closeBtn = $.querySelector(".close-btn");
 const modal = $.querySelector(".main__modal");
-let fileName;
-
-// modal.style.height = window.innerHeight + "px";
+const fileNameElem = $.querySelector("#fileName");
+const file2NameElem = $.querySelector("#file2Name");
+const processTimeElam = $.querySelector("#processTime");
+const inputSizeElam = $.querySelector("#inputSize");
+const outputSizeElam = $.querySelector("#outputSize");
+const ratioElam = $.querySelector("#ratio");
+let mainFile, fileName, file2Name, processTime, inputSize, outputSize, ratio;
 
 $.addEventListener("drop", (e) => {
   e.preventDefault();
@@ -31,6 +35,7 @@ fileInput.addEventListener("input", () => {
     haveFileBox.classList.remove("hide-box");
     uploadBox.style.pointerEvents = "none";
     sendFile(fileInput.files[0]);
+    inputSize = fileInput.files[0].size;
   }
 });
 
@@ -57,6 +62,7 @@ uploadBox.addEventListener("drop", (event) => {
     noFileBox.classList.add("hide-box");
     haveFileBox.classList.remove("hide-box");
     uploadBox.style.pointerEvents = "none";
+    inputSize = event.dataTransfer.files[0].size;
   }
 });
 
@@ -64,7 +70,6 @@ async function sendFile(file) {
   let formData = new FormData();
   formData.append("data_file", file);
   fileName = file.name;
-
   iconArr[0].classList.add("done");
   iconArr[0].parentElement.style.color = "#fff";
   uploadProgress.style.height = "100%";
@@ -81,11 +86,16 @@ async function sendFile(file) {
       },
     })
     .then(function (response) {
-      let mainFile = window.URL.createObjectURL(new Blob([response.data]));
+      mainFile = window.URL.createObjectURL(new Blob([response.data]));
       downloadBtn.href = mainFile;
       downloadBtn.setAttribute("download", fileName);
       downloadBtn.classList.add("show");
       modal.classList.add("active");
+      outputSize = response.headers["content-length"];
+      outputSizeElam.textContent = (outputSize / 1024).toFixed(2) + "KB";
+      inputSizeElam.textContent = (inputSize / 1024).toFixed(2) + "KB";
+      ratio = 100 - ((outputSize / inputSize) * 100).toFixed(1);
+      ratioElam.textContent = ratio.toFixed(2) + "%";
     })
     .catch(function (error) {
       console.log(error);
