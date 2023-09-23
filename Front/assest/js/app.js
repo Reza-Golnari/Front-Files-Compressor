@@ -11,6 +11,8 @@ const downloadBtn = $.querySelector(".download-btn");
 const iconArr = $.querySelectorAll(
   ".main__aside__body__step-container__box__icon"
 );
+let fileName;
+
 $.addEventListener("drop", (e) => {
   e.preventDefault();
 });
@@ -42,12 +44,19 @@ uploadBox.addEventListener("drop", (event) => {
   noFileBox.classList.add("hide-box");
   haveFileBox.classList.remove("hide-box");
   uploadBox.style.pointerEvents = "none";
-  sendFile(event.dataTransfer.files[0]);
+  if (
+    event.dataTransfer.files[0].type.includes("/html") ||
+    event.dataTransfer.files[0].type.includes("/css") ||
+    event.dataTransfer.files[0].type.includes("/js")
+  ) {
+    sendFile(event.dataTransfer.files[0]);
+  }
 });
 
 async function sendFile(file) {
   let formData = new FormData();
   formData.append("data_file", file);
+  fileName = file.name;
 
   iconArr[0].classList.add("done");
   iconArr[0].parentElement.style.color = "#fff";
@@ -68,7 +77,7 @@ async function sendFile(file) {
       console.log(response);
       let mainFile = window.URL.createObjectURL(new Blob([response.data]));
       downloadBtn.href = mainFile;
-      downloadBtn.setAttribute("download", "vue.js");
+      downloadBtn.setAttribute("download", fileName);
       downloadBtn.classList.add("show");
     })
     .catch(function (error) {
