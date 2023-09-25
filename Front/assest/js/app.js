@@ -29,7 +29,9 @@ let startTime,
   outputSize,
   ratio,
   newName,
-  nameArr;
+  nameArr,
+  nameIndex,
+  fileType;
 
 $.addEventListener("drop", (e) => {
   e.preventDefault();
@@ -50,6 +52,7 @@ uploadBox.addEventListener("dragleave", () => {
 
 fileInput.addEventListener("input", () => {
   if (fileInput.files) {
+    fileType = fileInput.files[0].name.split(".").pop();
     startTime = Date.now();
     noFileBox.classList.add("hide-box");
     haveFileBox.classList.remove("hide-box");
@@ -68,6 +71,7 @@ uploadBox.addEventListener("drop", (event) => {
     event.dataTransfer.files[0].type.includes("js") ||
     event.dataTransfer.files[0].type.includes("javascript")
   ) {
+    fileType = event.dataTransfer.files[0].name.split(".").pop();
     startTime = Date.now();
     sendFile(event.dataTransfer.files[0]);
     uploadBox.classList.remove("dragover");
@@ -146,7 +150,10 @@ function reset() {
 
 function changeFileName() {
   nameArr = fileName.split(".");
-  nameArr[0] = nameArr[0] + "(cmp)";
+  nameIndex = nameArr.findIndex((item) => {
+    return item == fileType;
+  });
+  nameArr[--nameIndex] = nameArr[nameIndex] + "(cmp)";
   newName = nameArr.join(".");
   file2NameElem.textContent = newName;
 }
