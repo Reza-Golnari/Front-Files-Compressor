@@ -1,4 +1,4 @@
-from rest_framework.response import Response
+import os 
 from rest_framework.generics import GenericAPIView
 from .serializers import MySerializer
 from minify_html import minify
@@ -13,7 +13,6 @@ class Compress(GenericAPIView):
         if serializer.is_valid():
             data_file = serializer.validated_data.get('data_file')
             data_str = data_file.read().decode('utf-8')
-            print(f"\n >>> {data_str}")
             compressed_data_str = minify(
                 code=data_str,
                 do_not_minify_doctype=False,
@@ -23,9 +22,11 @@ class Compress(GenericAPIView):
                 keep_closing_tags=True
             )
 
+            name, extension = os.path.splitext(data_file.name)
+            output_name = name + '(cmp)' + extension
             response = HttpResponse(
-                compressed_data_str, content_type='application/octet-stream')
-            response['Content-Disposition'] = f'attachment; filename="{data_file.name}"'
+                compressed_data_str, content_type='application/octet-st ream')
+            response['Content-Disposition'] = f'attachment; filename="{output_name}"'
             return response
 
         else:

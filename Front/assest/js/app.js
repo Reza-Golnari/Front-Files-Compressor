@@ -27,7 +27,9 @@ let startTime,
   processTime,
   inputSize,
   outputSize,
-  ratio;
+  ratio,
+  newName,
+  nameArr;
 
 $.addEventListener("drop", (e) => {
   e.preventDefault();
@@ -97,8 +99,9 @@ async function sendFile(file) {
     })
     .then(function (response) {
       mainFile = window.URL.createObjectURL(new Blob([response.data]));
+      changeFileName();
       downloadBtn.href = mainFile;
-      downloadBtn.setAttribute("download", fileName);
+      downloadBtn.setAttribute("download", newName);
       downloadBtn.classList.add("show");
       modal.classList.add("active");
       fileNameElem.textContent = fileName;
@@ -139,4 +142,11 @@ function reset() {
   noFileBox.classList.remove("hide-box");
   haveFileBox.classList.add("hide-box");
   uploadBox.style.pointerEvents = "all";
+}
+
+function changeFileName() {
+  nameArr = fileName.split(".");
+  nameArr[0] = nameArr[0] + "(cmp)";
+  newName = nameArr.join(".");
+  file2NameElem.textContent = newName;
 }
