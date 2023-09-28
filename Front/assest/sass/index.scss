@@ -177,11 +177,12 @@
     transition: opacity 0.3s;
     @include sizing(100%, 100%);
     background-color: rgba($dark, 0.5);
-    @include flex();
+    @include flex(row, flex-start, flex-start);
     display: none;
 
     &__content-box {
       padding: 15px 10px;
+      margin: 20px;
       @include sizing(500px, 300px);
       background-color: $dark;
       border: 5px solid $light-green;
